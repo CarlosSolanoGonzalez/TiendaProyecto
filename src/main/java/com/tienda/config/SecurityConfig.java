@@ -14,7 +14,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableMethodSecurity
 public class SecurityConfig {
-
+//TEST
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http,
             DaoAuthenticationProvider authenticationProvider) throws Exception {
