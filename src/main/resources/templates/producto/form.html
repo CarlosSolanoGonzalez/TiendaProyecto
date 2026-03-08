@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/fragments :: head('Formulario de producto')}"></head>
+<body>
+<nav th:replace="~{layout/fragments :: navbar}"></nav>
+<main class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4 p-md-5">
+                    <h1 class="fw-bold mb-4" th:text="${producto.id == null ? 'Nuevo producto' : 'Editar producto'}">Producto</h1>
+                    <form th:object="${producto}" th:attr="action=${accion}" method="post" enctype="multipart/form-data">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label" for="nombre">Nombre</label>
+                                <input class="form-control" id="nombre" type="text" th:field="*{nombre}" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label" for="precio">Precio</label>
+                                <input class="form-control" id="precio" type="number" step="0.01" min="0" th:field="*{precio}" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label" for="existencias">Existencias</label>
+                                <input class="form-control" id="existencias" type="number" min="0" th:field="*{existencias}" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label" for="categoria">Categoria</label>
+                                <select class="form-select" id="categoria" name="categoria.id" required>
+                                    <option value="">Seleccione una categoria</option>
+                                    <option th:each="categoria : ${categorias}"
+                                            th:value="${categoria.id}"
+                                            th:text="${categoria.nombre}"
+                                            th:selected="${producto.categoria != null and producto.categoria.id == categoria.id}"></option>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label" for="descripcion">Descripcion</label>
+                                <textarea class="form-control" id="descripcion" rows="4" th:field="*{descripcion}" required></textarea>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label" for="imagenFile">Imagen del producto</label>
+                                <input class="form-control" id="imagenFile" type="file" name="imagenFile" accept="image/*">
+                                <div class="form-text">La imagen se almacenara en Firebase Storage.</div>
+                            </div>
+                            <div class="col-12 preview-container d-none" id="previewContainer">
+                                <img id="previewImagen"
+                                     class="img-thumbnail preview-image"
+                                     src=""
+                                     alt="Vista previa de imagen">
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end gap-2 mt-4">
+                            <a class="btn btn-outline-secondary" th:href="@{/productos}">Cancelar</a>
+                            <button class="btn btn-dark" type="submit">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<footer th:replace="~{layout/fragments :: footer}"></footer>
+<div th:replace="~{layout/fragments :: scripts}"></div>
+</body>
+</html>

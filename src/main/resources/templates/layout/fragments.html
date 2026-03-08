@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+<head th:fragment="head(titulo)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${titulo} + ' | Tienda'">Tienda</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.min.css}">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+
+<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+    <div class="container">
+        <a class="navbar-brand fw-bold" th:href="@{/}">Tienda</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarContent">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item"><a class="nav-link" th:href="@{/productos}">Productos</a></li>
+                <li class="nav-item" sec:authorize="hasRole('ADMIN')"><a class="nav-link" th:href="@{/categorias}">Categorias</a></li>
+                <li class="nav-item" sec:authorize="hasRole('ADMIN')"><a class="nav-link" th:href="@{/productos/nuevo}">Administrar</a></li>
+            </ul>
+            <div class="d-flex gap-2">
+                <span class="navbar-text text-light small me-2" sec:authorize="isAuthenticated()">
+                    Hola, <span sec:authentication="name">usuario</span>
+                </span>
+                <a class="btn btn-outline-light btn-sm" th:href="@{/usuarios/login}" sec:authorize="!isAuthenticated()">Login</a>
+                <form th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()">
+                    <button class="btn btn-outline-light btn-sm" type="submit">Salir</button>
+                </form>
+                <a class="btn btn-warning btn-sm" th:href="@{/carrito}" sec:authorize="isAuthenticated()">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<footer th:fragment="footer" class="bg-dark text-light py-4 mt-5">
+    <div class="container d-flex justify-content-between flex-column flex-md-row gap-3">
+        <p class="mb-0">Base Spring Boot para tienda de ropa.</p>
+        <p class="mb-0">Productos con imagenes en Firebase Storage.</p>
+    </div>
+</footer>
+
+<div th:fragment="scripts">
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/js/app.js}"></script>
+</div>
+</body>
+</html>
