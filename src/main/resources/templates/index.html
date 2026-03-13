@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/fragments :: head('Inicio')}"></head>
+<body>
+<nav th:replace="~{layout/fragments :: navbar}"></nav>
+<main class="py-5">
+    <section class="container">
+        <div class="row g-4 align-items-center">
+            <div class="col-lg-6">
+                <span class="badge text-bg-warning mb-3">Coleccion 2026</span>
+                <h1 class="display-5 fw-bold">Tienda en linea para tu proyecto universitario.</h1>
+                <p class="lead text-secondary">Catalogo, carrito, categorias y carga de imagenes con Firebase Storage.</p>
+                <div class="d-flex gap-3">
+                    <a class="btn btn-dark btn-lg" th:href="@{/productos}">Ver productos</a>
+                    <a class="btn btn-outline-dark btn-lg" th:href="@{/categorias}">Ver categorias</a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="hero-card rounded-4 shadow-sm p-4">
+                    <h2 class="h4 mb-3">Categorias disponibles</h2>
+                    <div class="d-flex flex-wrap gap-2 mb-4">
+                        <span class="badge rounded-pill text-bg-light border"
+                              th:each="categoria : ${categorias}"
+                              th:text="${categoria.nombre}">Categoria</span>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-md-6" th:each="producto, estado : ${productos}" th:if="${estado.index < 2}">
+                            <div class="card border-0 h-100">
+                                <img class="card-img-top rounded-3 producto-thumb"
+                                     th:src="${producto.imagenUrl != null ? producto.imagenUrl : 'https://placehold.co/600x800'}"
+                                     th:alt="${producto.nombre}">
+                                <div class="card-body px-0">
+                                    <h3 class="h6 mb-1" th:text="${producto.nombre}">Producto</h3>
+                                    <p class="text-secondary small mb-2" th:text="${producto.categoria.nombre}">Categoria</p>
+                                    <a class="link-dark fw-semibold" th:href="@{/productos/{id}(id=${producto.id})}">Ver detalle</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<footer th:replace="~{layout/fragments :: footer}"></footer>
+<div th:replace="~{layout/fragments :: scripts}"></div>
+</body>
+</html>

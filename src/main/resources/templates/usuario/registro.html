@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/fragments :: head('Registro')}"></head>
+<body>
+<nav th:replace="~{layout/fragments :: navbar}"></nav>
+<main class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-7">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4 p-md-5">
+                    <h1 class="fw-bold mb-4">Registro de cliente</h1>
+                    <div class="alert alert-danger" th:if="${mensajeError}" th:text="${mensajeError}"></div>
+                    <form th:object="${usuario}" th:action="@{/usuarios/registro}" method="post">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label" for="nombre">Nombre</label>
+                                <input class="form-control" id="nombre" type="text" th:field="*{nombre}" required>
+                                <div class="text-danger small" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label" for="correo">Correo</label>
+                                <input class="form-control" id="correo" type="email" th:field="*{correo}" required>
+                                <div class="text-danger small" th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}"></div>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label" for="contrasena">Contrasena</label>
+                                <input class="form-control" id="contrasena" type="password" th:field="*{contrasena}" required>
+                                <div class="text-danger small" th:if="${#fields.hasErrors('contrasena')}" th:errors="*{contrasena}"></div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end gap-2 mt-4">
+                            <a class="btn btn-outline-secondary" th:href="@{/usuarios/login}">Cancelar</a>
+                            <button class="btn btn-dark" type="submit">Registrar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<footer th:replace="~{layout/fragments :: footer}"></footer>
+<div th:replace="~{layout/fragments :: scripts}"></div>
+</body>
+</html>

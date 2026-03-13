@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{layout/fragments :: head('Login')}"></head>
+    <body>
+        <nav th:replace="~{layout/fragments :: navbar}"></nav>
+        <main class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-5">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body p-4 p-md-5">
+                            <h1 class="fw-bold mb-4">Ingreso</h1>
+                            <div class="alert alert-danger" th:if="${mensajeError}" th:text="${mensajeError}"></div>
+                            <div class="alert alert-success" th:if="${mensajeExito}" th:text="${mensajeExito}"></div>
+                            <form th:action="@{/login}" method="post">
+                                <div class="mb-3">
+                                    <label class="form-label" for="correo">Correo</label>
+                                    <input class="form-control" id="correo" name="correo" type="email" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" for="contrasena">Contrasena</label>
+                                    <input class="form-control" id="contrasena" name="contrasena" type="password" required>
+                                </div>
+                                <button class="btn btn-dark w-100" type="submit">Ingresar</button>
+                            </form>
+                            <a class="btn btn-outline-secondary w-100 mt-3" th:href="@{/usuarios/registro}">Crear cuenta CLIENTE</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer th:replace="~{layout/fragments :: footer}"></footer>
+        <div th:replace="~{layout/fragments :: scripts}"></div>
+    </body>
+</html>
