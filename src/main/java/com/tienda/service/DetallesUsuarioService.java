@@ -32,4 +32,6 @@ public class DetallesUsuarioService implements UserDetailsService {
         return User.withUsername(usuario.getCorreo())
                 .password(usuario.getContrasena())
                 .authorities(authorities)
-				.build();
+		.build();
+    }
+}
