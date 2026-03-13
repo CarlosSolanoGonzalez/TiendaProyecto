@@ -8,3 +8,4 @@ public interface CarritoItemRepository extends JpaRepository<CarritoItem, Long> 
 
     Optional<CarritoItem> findByCarritoIdAndProductoId(Long carritoId, Long productoId);
 }
+
