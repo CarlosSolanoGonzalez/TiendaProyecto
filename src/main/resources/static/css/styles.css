@@ -1,12 +1,173 @@
-body {
-    background: linear-gradient(180deg, #f8f5f0 0%, #ffffff 35%, #f4f4f4 100%);
-    color: #212529;
+/* ===== CUSTOM THEME — Tienda ===== */
+
+:root {
+    --brand-primary: #2C2C2C;
+    --brand-primary-dark: #1A1A1A;
+    --brand-accent: #D4A76A;
+    --bg-cream: #f8f5f0;
+    --text-dark: #212529;
+    --font-heading: 'Cormorant Garamond', Georgia, serif;
+    --font-body: 'Inter', system-ui, sans-serif;
 }
+
+/* ---- Base ---- */
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-body);
+    background: linear-gradient(180deg, #f8f5f0 0%, #ffffff 35%, #f4f4f4 100%);
+    color: var(--text-dark);
+}
+
+::selection {
+    background-color: var(--brand-primary);
+    color: #fff;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+}
+
+/* ---- Navbar ---- */
+
+.navbar.bg-dark {
+    background-color: var(--brand-primary) !important;
+}
+
+.navbar-brand {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 1.4rem;
+}
+
+.navbar-dark .nav-link {
+    text-transform: uppercase;
+    font-size: 0.82rem;
+    letter-spacing: 1px;
+    font-weight: 500;
+    opacity: 0.85;
+    transition: opacity 0.25s ease;
+}
+
+.navbar-dark .nav-link:hover,
+.navbar-dark .nav-link:focus {
+    opacity: 1;
+}
+
+/* Cart button accent */
+.navbar .btn-warning {
+    background-color: var(--brand-accent) !important;
+    border-color: var(--brand-accent) !important;
+    color: #fff !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.navbar .btn-warning:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(212, 167, 106, 0.4);
+}
+
+/* ---- Buttons ---- */
+
+.btn-dark {
+    background-color: var(--brand-primary) !important;
+    border-color: var(--brand-primary) !important;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.btn-dark:hover,
+.btn-dark:focus {
+    background-color: var(--brand-primary-dark) !important;
+    border-color: var(--brand-primary-dark) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(44, 44, 44, 0.35);
+}
+
+.btn-outline-dark {
+    color: var(--brand-primary) !important;
+    border-color: var(--brand-primary) !important;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.btn-outline-dark:hover,
+.btn-outline-dark:focus {
+    background-color: var(--brand-primary) !important;
+    border-color: var(--brand-primary) !important;
+    color: #fff !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(44, 44, 44, 0.3);
+}
+
+.btn-outline-light {
+    border-color: rgba(255, 255, 255, 0.5);
+    transition: all 0.2s ease;
+}
+
+.btn-outline-light:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    border-color: #fff;
+}
+
+/* ---- Product Cards ---- */
+
+.card {
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+}
+
+.card-img-top,
+.card img:first-child {
+    transition: transform 0.4s ease;
+}
+
+.card:hover .card-img-top,
+.card:hover img:first-child {
+    transform: scale(1.04);
+}
+
+.card-body .card-title,
+.card-body h5 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 1.15rem;
+}
+
+.card-body .card-text {
+    color: #555;
+    font-size: 0.92rem;
+}
+
+/* ---- Hero card (index) ---- */
 
 .hero-card {
     background: linear-gradient(135deg, #ffffff 0%, #f7efe4 100%);
     border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 12px;
 }
+
+/* ---- Images (existing sizing kept) ---- */
 
 .producto-thumb,
 .listing-image,
@@ -32,6 +193,8 @@ body {
     max-height: 250px;
 }
 
+/* ---- Carrito ---- */
+
 .quantity-input {
     max-width: 100px;
 }
@@ -40,4 +203,106 @@ body {
     width: 72px;
     height: 88px;
     object-fit: cover;
+    border-radius: 8px;
+    border: 2px solid var(--brand-accent);
+}
+
+.table thead th {
+    text-transform: uppercase;
+    font-size: 0.78rem;
+    letter-spacing: 1px;
+    font-weight: 600;
+    background-color: #f5f0eb;
+    border-bottom: 2px solid var(--brand-accent);
+}
+
+.table tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+.table tbody tr:hover {
+    background-color: rgba(212, 167, 106, 0.06);
+}
+
+/* Product names in cart → serif */
+.table td a,
+.table td strong {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+/* "Comprar" / prominent action button in cart */
+.btn-success,
+.btn-primary {
+    background-color: var(--brand-primary);
+    border-color: var(--brand-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    font-weight: 500;
+    font-size: 0.85rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.btn-success:hover,
+.btn-primary:hover {
+    background-color: var(--brand-primary-dark);
+    border-color: var(--brand-primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(44, 44, 44, 0.35);
+}
+
+/* ---- Badges ---- */
+
+.badge.bg-dark,
+.badge.bg-secondary {
+    background-color: var(--brand-accent) !important;
+    color: #fff;
+    font-weight: 500;
+}
+
+/* ---- Forms ---- */
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--brand-primary);
+    box-shadow: 0 0 0 0.2rem rgba(44, 44, 44, 0.2);
+}
+
+/* ---- Alerts ---- */
+
+.alert-success {
+    background-color: #e8f5e9;
+    border-color: #c8e6c9;
+    color: #2e7d32;
+}
+
+.alert-danger {
+    background-color: #fce4ec;
+    border-color: #f8bbd0;
+    color: #c62828;
+}
+
+.alert-warning {
+    background-color: #fff8e1;
+    border-color: #ffecb3;
+    color: #e65100;
+}
+
+.alert-info {
+    background-color: #e3f2fd;
+    border-color: #bbdefb;
+    color: #1565c0;
+}
+
+/* ---- Footer ---- */
+
+footer.bg-dark {
+    background-color: var(--text-dark) !important;
+    border-top: 3px solid var(--brand-primary);
+}
+
+footer p {
+    font-size: 0.9rem;
+    opacity: 0.85;
 }
