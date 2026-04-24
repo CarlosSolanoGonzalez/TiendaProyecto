@@ -6,10 +6,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.tienda.domain.Carrito;
 import com.tienda.domain.CarritoItem;
+import com.tienda.domain.Pedido;
+import com.tienda.domain.PedidoDetalle;
 import com.tienda.domain.Producto;
 import com.tienda.domain.Usuario;
 import com.tienda.repository.CarritoItemRepository;
 import com.tienda.repository.CarritoRepository;
+import com.tienda.repository.PedidoDetalleRepository;
+import com.tienda.repository.PedidoRepository;
 import com.tienda.repository.ProductoRepository;
 import com.tienda.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +27,8 @@ public class CarritoService {
     private final CarritoItemRepository carritoItemRepository;
     private final ProductoRepository productoRepository;
     private final UsuarioRepository usuarioRepository;
+    private final PedidoRepository pedidoRepository;
+    private final PedidoDetalleRepository pedidoDetalleRepository;
 
     public Carrito obtenerOCrearCarrito(Long usuarioId) {
         return carritoRepository.findByUsuarioId(usuarioId)
@@ -102,6 +108,25 @@ public class CarritoService {
             Producto producto = productoRepository.findById(item.getProducto().getId())
                     .orElseThrow(() -> new IllegalArgumentException("Producto no encontrado: " + item.getProducto().getId()));
             validarExistencias(producto, item.getCantidad());
+        }
+
+        BigDecimal total = carrito.getItems().stream()
+                .map(item -> item.getPrecio().multiply(BigDecimal.valueOf(item.getCantidad())))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        Pedido pedido = pedidoRepository.save(Pedido.builder()
+                .usuario(carrito.getUsuario())
+                .fecha(LocalDateTime.now())
+                .total(total)
+                .build());
+
+        for (CarritoItem item : carrito.getItems()) {
+            pedidoDetalleRepository.save(PedidoDetalle.builder()
+                    .pedido(pedido)
+                    .producto(item.getProducto())
+                    .cantidad(item.getCantidad())
+                    .precioUnitario(item.getPrecio())
+                    .build());
         }
 
         for (CarritoItem item : carrito.getItems()) {
